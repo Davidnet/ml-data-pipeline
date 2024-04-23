@@ -8,8 +8,9 @@ def merge_jsons(
     another_json_file: Input[Artifact],
     merged_json_file: Output[Artifact],
 ):
+    merged_json_file.uri = dsl.ConcatPlaceholder([merged_json_file.uri, ".tar"])
     return dsl.ContainerSpec(
-        image="esolang/jq",
+        image="ddev/ddev-utilities",
         command=[
             "sh",
             "-xc",
